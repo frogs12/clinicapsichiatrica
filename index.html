@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Clinica Psichiatrica – Archivio Riservato</title>
+
+<style>
+body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background-color: #e8f2f7;
+    color: #1f2d3a;
+    margin: 0;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 3em auto;
+    background-color: #ffffff;
+    padding: 3em;
+    border-radius: 6px;
+    box-shadow: 0 0 20px rgba(0,80,120,0.15);
+}
+
+h1, h2, h3 {
+    color: #1e5f86;
+}
+
+input {
+    padding: 0.5em;
+    margin: 0.3em;
+    font-size: 1em;
+}
+
+button {
+    padding: 0.5em 1em;
+    background-color: #3a8fc4;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2f78a6;
+}
+
+.error {
+    color: #9b2c2c;
+    font-style: italic;
+    margin-top: 0.5em;
+}
+
+.hidden {
+    display: none;
+}
+
+.section {
+    margin-top: 3em;
+}
+
+.dossier {
+    background-color: #f2f8fb;
+    border: 1px solid #bcd6e6;
+    padding: 1.5em;
+    margin-bottom: 1.5em;
+    border-radius: 4px;
+}
+
+.restricted {
+    border: 2px dashed #9b2c2c;
+    background-color: #fff5f5;
+}
+
+footer {
+    margin-top: 4em;
+    padding-top: 1em;
+    border-top: 1px solid #bcd6e6;
+    font-size: 0.9em;
+    color: #5a6b78;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Clinica Psichiatrica</h1>
+<p>Archivio clinico riservato – Accesso consentito solo a personale autorizzato.</p>
+
+<!-- LOGIN -->
+<div id="login">
+    <input type="text" id="medico" placeholder="Nome medico">
+    <input type="password" id="password" placeholder="Password">
+    <br>
+    <button onclick="accedi()">Accedi</button>
+    <div id="loginError" class="error"></div>
+</div>
+
+<!-- ARCHIVIO -->
+<div id="archivio" class="hidden">
+
+<!-- PAZIENTI -->
+<div class="section">
+<h2>Archivio Pazienti</h2>
+
+<input type="text" id="searchPazienti" placeholder="Cerca paziente">
+<button onclick="cercaPaziente()">Cerca</button>
+<div id="pazientiError" class="error"></div>
+
+<div id="pazientiRisultati"></div>
+</div>
+
+<!-- PERSONALE -->
+<div class="section">
+<h2>Personale Medico</h2>
+
+<input type="text" id="searchMedici" placeholder="Cerca medico">
+<button onclick="cercaMedico()">Cerca</button>
+<div id="mediciRisultati"></div>
+</div>
+
+</div>
+
+<footer>
+Archivio interno – accessi monitorati.
+</footer>
+
+</div>
+
+<script>
+const pazienti = [
+{
+nome: "Ubaldo Medio",
+testo: `
+<h3>Ubaldo Medio</h3>
+<p><strong>Diagnosi:</strong> Disturbo delirante persistente.</p>
+<p>Il paziente manifestava convinzioni identitarie non aderenti alla realtà e
+una progressiva perdita del senso del sé.</p>
+<p><strong>Stato:</strong> Scomparso sotto circostanze non chiarite.
+Si ipotizza una fuga pianificata.</p>`
+},
+{
+nome: "Alberto degli Alberti",
+testo: `
+<h3>Alberto degli Alberti</h3>
+<p><strong>Diagnosi:</strong> Disturbo post-traumatico.</p>
+<p>Ricoverato per traumi psicologici conseguenti ad esperienze belliche.</p>
+<p><strong>Stato:</strong> Dimesso dopo alcune settimane con esito stabile.</p>`
+},
+{
+nome: "Vincenzo Fosco",
+testo: `
+<h3>Vincenzo Fosco</h3>
+<p><strong>Diagnosi:</strong> Disturbo antisociale della personalità.</p>
+<p>Marcata impulsività, ridotta empatia, comportamento imprevedibile
+e frequenti episodi di aggressività verbale.</p>
+<p><strong>Stato:</strong> Scomparso recentemente.
+Le circostanze risultano non documentate in modo completo.</p>`
+}
+];
+
+const medici = [
+{
+nome: "Adriano dalla Fossa",
+testo: `
+<h3>Adriano dalla Fossa</h3>
+<p>Psichiatra certificato.
+Responsabile clinico di reparto.</p>`
+},
+{
+nome: "Fabio Verdi",
+testo: `
+<h3>Fabio Verdi</h3>
+<p>Medico ricercatore.</p>
+<p>Ha condotto sperimentazioni cliniche non autorizzate su pazienti interni.</p>
+<p><em>Parte della documentazione risulta mancante.
+Sono stati registrati decessi.
+Le indagini interne sono state archiviate.</em></p>`
+}
+];
+
+function accedi() {
+    const m = medico.value;
+    const p = password.value;
+    if (m === "Adriano dalla Fossa" && p === "Clara") {
+        login.style.display = "none";
+        archivio.classList.remove("hidden");
+    } else if (m === "Adriano dalla Fossa") {
+        loginError.textContent = "Indizio: ciò che ami di più";
+    } else {
+        loginError.textContent = "Accesso negato.";
+    }
+}
+
+function cercaPaziente() {
+    pazientiRisultati.innerHTML = "";
+    pazientiError.textContent = "";
+    const q = searchPazienti.value.toLowerCase();
+    const f = pazienti.find(p => p.nome.toLowerCase() === q);
+    if (f) {
+        pazientiRisultati.innerHTML = `<div class="dossier">${f.testo}</div>`;
+    } else {
+        pazientiError.textContent = "Nessun paziente trovato.";
+    }
+}
+
+function cercaMedico() {
+    mediciRisultati.innerHTML = "";
+    const q = searchMedici.value.toLowerCase();
+    const f = medici.find(m => m.nome.toLowerCase() === q);
+    if (f) {
+        if (f.nome === "Fabio Verdi") {
+            mediciRisultati.innerHTML = `
+            <div class="dossier restricted">
+            <p>Fascicolo riservato – inserire password</p>
+            <input type="password" id="passVerdi">
+            <button onclick="sbloccaVerdi()">Accedi</button>
+            <div id="verdiArea"></div>
+            </div>`;
+        } else {
+            mediciRisultati.innerHTML = `<div class="dossier">${f.testo}</div>`;
+        }
+    } else {
+        mediciRisultati.innerHTML = `<div class="error">Nessun medico trovato.</div>`;
+    }
+}
+
+function sbloccaVerdi() {
+    if (passVerdi.value === "scarabeo") {
+        const f = medici.find(m => m.nome === "Fabio Verdi");
+        verdiArea.innerHTML = f.testo;
+    } else {
+        verdiArea.innerHTML = "<div class='error'>Accesso negato.</div>";
+    }
+}
+</script>
+
+</body>
+</html>
