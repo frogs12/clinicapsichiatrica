@@ -227,7 +227,7 @@ function cercaMedico() {
 
 function sbloccaVerdi() {
     if (passVerdi.value === "scarabeo") {
-        const f = medici.find(m => m.nome === "Camillo Cotto");
+        const f = medici.find(m => m.nome === "Camillo Cotti");
         verdiArea.innerHTML = f.testo;
     } else {
         verdiArea.innerHTML = "<div class='error'>Accesso negato.</div>";
@@ -237,6 +237,7 @@ function sbloccaVerdi() {
 
 </body>
 </html>
+
 
 
 
