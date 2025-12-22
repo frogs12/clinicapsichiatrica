@@ -130,9 +130,9 @@ Archivio interno – accessi monitorati.
 <script>
 const pazienti = [
 {
-nome: "Ubaldo Medio",
+nome: "Danilo Trotto",
 testo: `
-<h3>Ubaldo Medio</h3>
+<h3>Danilo Trotto</h3>
 <p><strong>Diagnosi:</strong> Disturbo delirante persistente.</p>
 <p>Il paziente manifestava convinzioni identitarie non aderenti alla realtà e
 una progressiva perdita del senso del sé.</p>
@@ -148,27 +148,27 @@ testo: `
 <p><strong>Stato:</strong> Dimesso dopo alcune settimane con esito stabile.</p>`
 },
 {
-nome: "Vincenzo Fosco",
+nome: "Celestino Pecco",
 testo: `
-<h3>Vincenzo Fosco</h3>
+<h3>Celestino Peccp</h3>
 <p><strong>Diagnosi:</strong> Disturbo antisociale della personalità.</p>
 <p>Marcata impulsività, ridotta empatia, comportamento imprevedibile
-e frequenti episodi di aggressività verbale.</p>
-<p><strong>Stato:</strong> Scomparso recentemente.
+e frequenti episodi di aggressività. Soggetto molto pericoloso </p>
+<p><strong>Stato:</strong> Scomparso recentemente insieme a Danilo Trotto durante un blackout.
 Le circostanze risultano non documentate in modo completo.</p>`
 }
 ];
 
 const medici = [
 {
-nome: "Adriano dalla Fossa",
+nome: "Gregorio Pomodoro",
 testo: `
-<h3>Adriano dalla Fossa</h3>
+<h3>Gregorio Pomodoro</h3>
 <p>Psichiatra certificato.
 Responsabile clinico di reparto.</p>`
 },
 {
-nome: "Fabio Verdi",
+nome: "Camillo Cotti",
 testo: `
 <h3>Fabio Verdi</h3>
 <p>Medico ricercatore.</p>
@@ -185,7 +185,7 @@ function accedi() {
     if (m === "Adriano dalla Fossa" && p === "Clara") {
         login.style.display = "none";
         archivio.classList.remove("hidden");
-    } else if (m === "Adriano dalla Fossa") {
+    } else if (m === "Gregorio Pomodoro") {
         loginError.textContent = "Indizio: ciò che ami di più";
     } else {
         loginError.textContent = "Accesso negato.";
@@ -209,7 +209,7 @@ function cercaMedico() {
     const q = searchMedici.value.toLowerCase();
     const f = medici.find(m => m.nome.toLowerCase() === q);
     if (f) {
-        if (f.nome === "Fabio Verdi") {
+        if (f.nome === "Camillo Cotti") {
             mediciRisultati.innerHTML = `
             <div class="dossier restricted">
             <p>Fascicolo riservato – inserire password</p>
@@ -237,3 +237,4 @@ function sbloccaVerdi() {
 
 </body>
 </html>
+
