@@ -226,17 +226,21 @@ function cercaMedico() {
 }
 
 function sbloccaVerdi() {
-    if (passVerdi.value === "scarabeo") {
+    const pass = document.getElementById("passVerdi").value;
+    const area = document.getElementById("verdiArea");
+
+    if (pass === "scarabeo") {
         const f = medici.find(m => m.nome === "Camillo Cotti");
-        verdiArea.innerHTML = f.testo;
+        area.innerHTML = f.testo;
     } else {
-        verdiArea.innerHTML = "<div class='error'>Accesso negato.</div>";
+        area.innerHTML = "<div class='error'>Accesso negato.</div>";
     }
 }
 </script>
 
 </body>
 </html>
+
 
 
 
