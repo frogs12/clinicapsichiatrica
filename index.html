@@ -130,7 +130,7 @@ Archivio interno – accessi monitorati.
 <script>
 const pazienti = [
 {
-nome: "Danilo Trotto",
+nome: "Ubaldo Medio",
 testo: `
 <h3>Danilo Trotto</h3>
 <p><strong>Diagnosi:</strong> Disturbo delirante persistente.</p>
@@ -148,7 +148,7 @@ testo: `
 <p><strong>Stato:</strong> Dimesso dopo alcune settimane con esito stabile.</p>`
 },
 {
-nome: "Celestino Pecco",
+nome: "Vincenzo Fosco",
 testo: `
 <h3>Celestino Pecco</h3>
 <p><strong>Diagnosi:</strong> Disturbo antisociale della personalità.</p>
@@ -161,14 +161,14 @@ Le circostanze risultano non documentate in modo completo.</p>`
 
 const medici = [
 {
-nome: "Gregorio Pomodoro",
+nome: "Adriano dalla Fossa",
 testo: `
 <h3>Gregorio Pomodoro</h3>
 <p>Psichiatra certificato.
 Responsabile clinico di reparto.</p>`
 },
 {
-nome: "Camillo Cotti",
+nome: "Fabio Verdi",
 testo: `
 <h3>Camillo Cotti</h3>
 <p>Medico ricercatore.</p>
@@ -182,10 +182,10 @@ Le indagini interne sono state archiviate.</em></p>`
 function accedi() {
     const m = medico.value;
     const p = password.value;
-    if (m === "Gregorio Pomodoro" && p === "Pippo") {
+    if (m === "Adriano dalla Fossa" && p === "Clara") {
         login.style.display = "none";
         archivio.classList.remove("hidden");
-    } else if (m === "Gregorio Pomodoro") {
+    } else if (m === "Adriano dalla Fossa") {
         loginError.textContent = "Indizio: ciò che ami di più";
     } else {
         loginError.textContent = "Accesso negato.";
@@ -209,7 +209,7 @@ function cercaMedico() {
     const q = searchMedici.value.toLowerCase();
     const f = medici.find(m => m.nome.toLowerCase() === q);
     if (f) {
-        if (f.nome === "Camillo Cotti") {
+        if (f.nome === "Fabio Verdi") {
             mediciRisultati.innerHTML = `
             <div class="dossier restricted">
             <p>Fascicolo riservato – inserire password</p>
@@ -230,7 +230,7 @@ function sbloccaVerdi() {
     const area = document.getElementById("verdiArea");
 
     if (pass === "scarabeo") {
-        const f = medici.find(m => m.nome === "Camillo Cotti");
+        const f = medici.find(m => m.nome === "Fabio Verdi");
         area.innerHTML = f.testo;
     } else {
         area.innerHTML = "<div class='error'>Accesso negato.</div>";
@@ -240,6 +240,7 @@ function sbloccaVerdi() {
 
 </body>
 </html>
+
 
 
 
